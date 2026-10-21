@@ -2,11 +2,32 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+model Student {
+  id        Int       @id @default(autoincrement())
+  firstName String
+  lastName  String
+  course    String
+  createdAt DateTime  @default(now())
+  sessions  Session[]
+}
+
+model Session {
+  id              Int      @id @default(autoincrement())
+  studentId       Int
+  student         Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  date            String
+  durationMinutes Int
+  topic           String
+  notes           String?
+  createdAt       DateTime @default(now())
+
+  @@index([studentId])
 }

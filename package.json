@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prisma": {
+  "seed": "tsx prisma/seed.ts"
+},
   "dependencies": {
     "@prisma/client": "^6.19.3",
     "next": "14.2.35",
